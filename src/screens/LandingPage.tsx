@@ -11,7 +11,9 @@ import getRecommendedProducts, {
   RecommendedProduct,
 } from "../api/recommendedProducts/RecommendedProducts";
 import { useQuery } from "react-query";
-import getProductsCategories from "../api/categories/Categories";
+import getProductsCategories, {
+  ProductCategory,
+} from "../api/categories/Categories";
 
 const LandingPage: React.FC = () => {
   const navigationItems = [
@@ -41,13 +43,13 @@ const LandingPage: React.FC = () => {
     RecommendedProduct[]
   >([]);
 
-  const [categories, setCategories] = useState<string[]>([]);
+  const [categories, setCategories] = useState<ProductCategory[]>([]);
 
   useQuery("getProductsCategories", async () => {
     const response = await getProductsCategories();
     if (response !== null) {
       console.warn("categories", response);
-      setCategories(response as string[]);
+      setCategories(response as ProductCategory[]);
       return;
     }
     return [""];
@@ -84,8 +86,12 @@ const LandingPage: React.FC = () => {
       />
       <div className="flex space-x-1 ">
         {categories.length > 0 &&
-          categories.map((category) => (
-            <CategoryCard key={category} name={category} imagePath={category} />
+          categories.map((category, index) => (
+            <CategoryCard
+              key={`${category.name}${index}`}
+              name={category.name}
+              imagePath={category.image}
+            />
           ))}
       </div>
       <div className="flex space-x-2 ">

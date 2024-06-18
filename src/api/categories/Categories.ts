@@ -1,4 +1,9 @@
-async function getProductsCategories(): Promise<string[] | Error> {
+export type ProductCategory = {
+  name: string;
+  image: string;
+};
+
+async function getProductsCategories(): Promise<ProductCategory[] | Error> {
   try {
     const response = await fetch("http://localhost:3000/api/categories", {
       method: "GET",
@@ -10,7 +15,7 @@ async function getProductsCategories(): Promise<string[] | Error> {
       throw new Error("Failed to fetch products categories");
     }
     const data = await response.json();
-    return data as string[];
+    return data as ProductCategory[];
   } catch (error) {
     return new Error("An error occurred while fetching recommended products");
   }

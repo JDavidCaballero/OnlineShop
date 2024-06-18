@@ -11,7 +11,11 @@ const CategoryCard: React.FC<CategoryCardProps> = ({
 }) => {
   return (
     <div className="bg-gray-200 h-72 w-full flex flex-col justify-between rounded-md">
-      <img src={imagePath} alt={name} className="h-48 mx-auto rounded-md" />
+      <img
+        src={imagePath}
+        alt={name}
+        className="h-48 w-full mx-auto rounded-md object-cover p-2.5"
+      />
       <div className="flex-1 flex items-center justify-center p-2.5">
         <h3 className="text-center text-black border border-black p-1 hover:border-yellow-300">
           {name}
