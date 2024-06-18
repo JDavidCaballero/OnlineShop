@@ -1,13 +1,8 @@
 import React, { useState, useEffect } from "react";
-
-interface Product {
-  title: string;
-  description: string;
-  logo: string;
-}
+import { RecommendedProduct } from "../../api/recommendedProducts/RecommendedProducts";
 
 interface MainBannerProps {
-  products: Product[];
+  products: RecommendedProduct[];
 }
 
 const MainBanner: React.FC<MainBannerProps> = ({ products }) => {
@@ -32,17 +27,19 @@ const MainBanner: React.FC<MainBannerProps> = ({ products }) => {
     return () => clearInterval(interval);
   }, [products.length]);
 
-  const currentProduct = products[currentProductIndex];
+  let currentProduct: RecommendedProduct | null = null;
+
+  currentProduct = products.length === 0 ? null : products[currentProductIndex];
 
   return (
     <div className="box-border h-[52] w-[550] bg-gray-200 rounded p-4 border-4">
       <div className={`left-section flex flex-row columns-2 ${animationClass}`}>
         <div className="flex flex-col items-start">
           <h1 className="text-black text-left w-80 h-15">
-            {currentProduct.title}
+            {currentProduct?.nombre}
           </h1>
           <h2 className="text-black text-left w-80 [h-50px] overflow-hidden overflow-ellipsis">
-            {currentProduct.description}
+            {currentProduct?.descripcion}
           </h2>
           <button className="mt-4 bg-black-300 hover:bg-yellow-500 text-white font-bold py-2 px-4 rounded">
             Go To Product
@@ -50,7 +47,7 @@ const MainBanner: React.FC<MainBannerProps> = ({ products }) => {
         </div>
         <div className="right-section flex items-center justify-center">
           <img
-            src={currentProduct.logo}
+            src={currentProduct?.image}
             alt="Product Logo"
             className="object-contain w-[1000px] h-[200px] rounded-lg object-cover"
           />
@@ -60,7 +57,7 @@ const MainBanner: React.FC<MainBannerProps> = ({ products }) => {
         <div className="dots absolute flex space-x-1">
           {products.map((_, index) => (
             <span
-              key={index}
+              key={_._id}
               className={`h-3 w-3 rounded-full ${
                 index === currentProductIndex ? "bg-yellow-500" : "bg-white"
               }`}

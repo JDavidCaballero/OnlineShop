@@ -22,7 +22,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
       <img
         src={image}
         alt={title}
-        className="product-card__image basis-1/2 w-3/4"
+        className="product-card__image basis-1/2 w-3/4 h-3/4 object-contain"
       />
       <div className="product-card__category text-black mt-2 basis-1/4">
         {category}
