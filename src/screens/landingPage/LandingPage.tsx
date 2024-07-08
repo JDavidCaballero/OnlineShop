@@ -1,28 +1,19 @@
 import React, { useState } from "react";
-import MainNavigationBar from "../components/mainNavigationBar/MainNavigationBar";
-import amazonLogo from "../assets/amazon_logo.png";
-import MainBanner from "../components/mainBanner/MainBanner";
-import RecommendedCategories from "../components/recommendedCategories/RecommendedCategories";
-import CategoryCard from "../components/categoryCard/CategoryCard";
-import InterestCard from "../components/interestCard/InterestCard";
-import SignInBanner from "../components/signInBanner/SignInBanner";
-import ProductCard from "../components/productCard/ProductCard";
+import MainBanner from "../../components/mainBanner/MainBanner";
+import RecommendedCategories from "../../components/recommendedCategories/RecommendedCategories";
+import CategoryCard from "../../components/categoryCard/CategoryCard";
+import InterestCard from "../../components/interestCard/InterestCard";
+import SignInBanner from "../../components/signInBanner/SignInBanner";
+import ProductCard from "../../components/productCard/ProductCard";
 import getRecommendedProducts, {
   RecommendedProduct,
-} from "../api/recommendedProducts/RecommendedProducts";
+} from "../../api/recommendedProducts/RecommendedProducts";
 import { useQuery } from "react-query";
 import getProductsCategories, {
   ProductCategory,
-} from "../api/categories/Categories";
+} from "../../api/categories/Categories";
 
 const LandingPage: React.FC = () => {
-  const navigationItems = [
-    { title: "Home", path: "/" },
-    { title: "About", path: "/about" },
-    { title: "Contact", path: "/contact" },
-    // Add more items as needed
-  ];
-
   const interestItems = [
     {
       title: "Explore the Outdoors",
@@ -75,24 +66,26 @@ const LandingPage: React.FC = () => {
 
   return (
     <div className="flex-col space-y-5 ">
-      <div className="flex items-center space-x-4 ">
-        <img src={amazonLogo} alt="Amazon Logo" className="w-20" />
-        <MainNavigationBar navigationItems={navigationItems} />
-      </div>
       <MainBanner products={recommendedProducts} />
-      <RecommendedCategories
-        username="John"
-        categories={["Kitchen", "Electronics", "hola", "dsa"]}
-      />
       <div className="flex space-x-1 ">
-        {categories.length > 0 &&
-          categories.map((category, index) => (
-            <CategoryCard
-              key={`${category.name}${index}`}
-              name={category.name}
-              imagePath={category.image}
-            />
-          ))}
+        {categories.length > 0 && (
+          <RecommendedCategories username="John" categories={categories} />
+        )}
+      </div>
+      <div className="space-y-5">
+        <h2 className="font-bold text-black text-left">
+          Categories to explore
+        </h2>
+        <div className="flex space-x-1 ">
+          {categories.length > 0 &&
+            categories.map((category, index) => (
+              <CategoryCard
+                key={`${category.name}${index}`}
+                name={category.name}
+                imagePath={category.image}
+              />
+            ))}
+        </div>
       </div>
       <div className="flex space-x-2 ">
         {interestItems.map((interest) => (

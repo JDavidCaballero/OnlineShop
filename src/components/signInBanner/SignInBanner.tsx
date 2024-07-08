@@ -1,6 +1,8 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 
 const SignInBanner: React.FC = () => {
+  const navigate = useNavigate();
   return (
     <div className="box-border flex h-[52] w-[550] bg-gray-200 rounded p-4 border-4">
       <div
@@ -15,7 +17,10 @@ const SignInBanner: React.FC = () => {
           <h2 className="text-black text-left w-80 [h-50px] overflow-hidden overflow-ellipsis">
             Sign in for the best experience
           </h2>
-          <button className="mt-4 bg-black-300 hover:bg-yellow-400 text-white font-bold rounded w-full">
+          <button
+            onClick={() => navigate("/SignIn")}
+            className="mt-4 bg-black-300 hover:bg-yellow-400 text-white font-bold rounded w-full"
+          >
             Sign in
           </button>
         </div>

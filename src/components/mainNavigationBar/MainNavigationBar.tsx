@@ -1,27 +1,48 @@
 import React from "react";
+import { NavLink } from "react-router-dom";
 
-interface NavigationItem {
-  title: string;
-  path: string;
-}
-
-interface MainNavigationBarProps {
-  navigationItems: NavigationItem[];
-}
-
-const MainNavigationBar: React.FC<MainNavigationBarProps> = ({
-  navigationItems,
-}) => {
+const MainNavigationBar: React.FC = () => {
   return (
     <nav>
       <ul className="flex space-x-4">
-        {navigationItems.map((item, index) => (
-          <li key={index} className="list-none">
-            <a href={item.path} className="text-black hover:text-yellow">
-              {item.title}
-            </a>
-          </li>
-        ))}
+        <li className="list-none">
+          <NavLink
+            to="/"
+            className={({ isActive }) =>
+              `${
+                isActive ? "text-yellow-400" : "text-black"
+              } hover:text-yellow-400`
+            }
+            end
+          >
+            Home
+          </NavLink>
+        </li>
+        <li className="list-none">
+          <NavLink
+            to="/about"
+            className={({ isActive }) =>
+              `${
+                isActive ? "text-yellow-400" : "text-black"
+              } hover:text-yellow-400`
+            }
+          >
+            About
+          </NavLink>
+        </li>
+        <li className="list-none">
+          <NavLink
+            to="/contact"
+            className={({ isActive }) =>
+              `${
+                isActive ? "text-yellow-400" : "text-black"
+              } hover:text-yellow-400`
+            }
+          >
+            Contact
+          </NavLink>
+        </li>
+        {/* Add more items as needed */}
       </ul>
     </nav>
   );
