@@ -6,14 +6,17 @@ export type loginUserModel = {
 export type userInfoResponse = {
   name: string;
   email: string;
-};
-
-export type userResponse = {
-  user: userInfoResponse;
+  id: string;
   accessToken: string;
 };
 
-async function loginUser(user: loginUserModel): Promise<userResponse | Error> {
+export type userLoginResponse = {
+  user: userInfoResponse;
+};
+
+async function loginUser(
+  user: loginUserModel
+): Promise<userLoginResponse | Error> {
   try {
     const response = await fetch("http://localhost:3000/api/users/login", {
       method: "POST",

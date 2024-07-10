@@ -12,6 +12,8 @@ import { useQuery } from "react-query";
 import getProductsCategories, {
   ProductCategory,
 } from "../../api/categories/Categories";
+import { useSelector } from "react-redux";
+import { userLoginResponse } from "../../api/user/LoginUser";
 
 const LandingPage: React.FC = () => {
   const interestItems = [
@@ -30,10 +32,11 @@ const LandingPage: React.FC = () => {
     },
   ];
 
+  const user = useSelector((state: { user: userLoginResponse }) => state.user);
+
   const [recommendedProducts, setRecommendedProducts] = useState<
     RecommendedProduct[]
   >([]);
-
   const [categories, setCategories] = useState<ProductCategory[]>([]);
 
   useQuery("getProductsCategories", async () => {
@@ -68,8 +71,11 @@ const LandingPage: React.FC = () => {
     <div className="flex-col space-y-5 ">
       <MainBanner products={recommendedProducts} />
       <div className="flex space-x-1 ">
-        {categories.length > 0 && (
-          <RecommendedCategories username="John" categories={categories} />
+        {user.user.email !== "" && categories.length > 0 && (
+          <RecommendedCategories
+            username={user.user.name}
+            categories={categories}
+          />
         )}
       </div>
       <div className="space-y-5">
@@ -87,6 +93,7 @@ const LandingPage: React.FC = () => {
             ))}
         </div>
       </div>
+      {/* this will be last 2 products visited*/}
       <div className="flex space-x-2 ">
         {interestItems.map((interest) => (
           <InterestCard
@@ -97,9 +104,9 @@ const LandingPage: React.FC = () => {
           />
         ))}
       </div>
-      <SignInBanner />
+      {user.user.email === "" && <SignInBanner />}
       <div className="space-y-5">
-        <h2 className="font-bold text-black text-left">Recommended Products</h2>
+        <h2 className="font-bold text-black text-left">Trending Products</h2>
         <div className="flex space-x-2">
           {recommendedProducts.length > 0 &&
             recommendedProducts.map((product) => (

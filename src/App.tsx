@@ -3,12 +3,15 @@ import "./App.css";
 import LandingPage from "./screens/landingPage/LandingPage";
 import SignInPage from "./screens/signIn/SignInPage";
 import RootLayout from "./screens/rootLayout/RootLayout";
+import ErrorPage from "./screens/errorPage/ErrorPage";
+import ProfilePage from "./screens/profile/profilePage";
+import ProtectedRoute from "./screens/rootLayout/ProtectedRoute";
 
 const routes = createBrowserRouter([
   {
     path: "/",
     element: <RootLayout />,
-    errorElement: <div>404 Not Found</div>,
+    errorElement: <ErrorPage />,
     children: [
       {
         path: "/",
@@ -17,6 +20,14 @@ const routes = createBrowserRouter([
       {
         path: "/SignIn",
         element: <SignInPage />,
+      },
+      {
+        path: "/Profile/:id",
+        element: (
+          <ProtectedRoute>
+            <ProfilePage />
+          </ProtectedRoute>
+        ),
       },
     ],
   },

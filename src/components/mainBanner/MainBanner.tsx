@@ -34,7 +34,7 @@ const MainBanner: React.FC<MainBannerProps> = ({ products }) => {
   return (
     <div className="box-border h-[52] w-[550] bg-gray-200 rounded p-4 border-4">
       <div className={`left-section flex flex-row columns-2 ${animationClass}`}>
-        <div className="flex flex-col items-start">
+        <div className="flex flex-col items-start me-5">
           <h1 className="text-black text-left w-80 h-15 truncate">
             {currentProduct?.nombre}
           </h1>
