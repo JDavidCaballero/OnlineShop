@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { RecommendedProduct } from "../../api/recommendedProducts/RecommendedProducts";
+import { useNavigate } from "react-router-dom";
 
 interface MainBannerProps {
   products: RecommendedProduct[];
@@ -8,7 +9,7 @@ interface MainBannerProps {
 const MainBanner: React.FC<MainBannerProps> = ({ products }) => {
   const [currentProductIndex, setCurrentProductIndex] = useState(0);
   const [animationClass, setAnimationClass] = useState("slide-in-from-left");
-
+  const navigate = useNavigate();
   useEffect(() => {
     if (products.length <= 1) {
       return; // Exit early if there's only one product, no need for animation.
@@ -31,6 +32,12 @@ const MainBanner: React.FC<MainBannerProps> = ({ products }) => {
 
   currentProduct = products.length === 0 ? null : products[currentProductIndex];
 
+  const goToProduct = () => {
+    navigate(`/Product/${currentProduct?._id}`, {
+      state: { product: currentProduct },
+    });
+  };
+
   return (
     <div className="box-border h-[52] w-[550] bg-gray-200 rounded p-4 border-4">
       <div className={`left-section flex flex-row columns-2 ${animationClass}`}>
@@ -41,7 +48,10 @@ const MainBanner: React.FC<MainBannerProps> = ({ products }) => {
           <h2 className="text-black text-left w-80 [h-50px] overflow-hidden overflow-ellipsis truncate">
             {currentProduct?.descripcion}
           </h2>
-          <button className="mt-4 bg-black-300 hover:bg-yellow-500 text-white font-bold py-2 px-4 rounded">
+          <button
+            onClick={goToProduct}
+            className="mt-4 bg-black-300 hover:bg-yellow-500 text-white font-bold py-2 px-4 rounded"
+          >
             Go To Product
           </button>
         </div>

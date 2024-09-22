@@ -15,7 +15,13 @@ async function getProductsCategories(): Promise<ProductCategory[] | Error> {
       throw new Error("Failed to fetch products categories");
     }
     const data = await response.json();
-    return data as ProductCategory[];
+    const mappedCategories: ProductCategory[] = data.map((category: any) => ({
+      name: category.categoria, 
+      image: category.image,
+    }));
+
+    return mappedCategories;
+
   } catch (error) {
     return new Error("An error occurred while fetching recommended products");
   }

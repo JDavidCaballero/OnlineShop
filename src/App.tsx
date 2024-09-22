@@ -6,6 +6,7 @@ import RootLayout from "./screens/rootLayout/RootLayout";
 import ErrorPage from "./screens/errorPage/ErrorPage";
 import ProfilePage from "./screens/profile/profilePage";
 import ProtectedRoute from "./screens/rootLayout/ProtectedRoute";
+import ProductDetail from "./screens/productDetail/ProductDetail";
 
 const routes = createBrowserRouter([
   {
@@ -28,6 +29,10 @@ const routes = createBrowserRouter([
             <ProfilePage />
           </ProtectedRoute>
         ),
+      },
+      {
+        path: "/Product/:id",
+        element: <ProductDetail />,
       },
     ],
   },

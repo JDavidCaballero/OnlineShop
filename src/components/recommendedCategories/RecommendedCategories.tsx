@@ -18,27 +18,32 @@ const RecommendedCategories: React.FC<RecommendedCategoriesProps> = ({
           alt="Profile"
           className="profile-photo h-20 w-20 rounded-full object-cover"
         />
-        <span className="greeting text-black">
+        <span className="greeting text-black text-left">
           Hi {username}, recommendations for you:
         </span>
       </div>
-      <div className="recommendations h-20 ">
-        <div className="category-list flex h-20 items-center space-x-20">
+      <div className="recommendations h-20">
+        <div className="category-list flex h-20 items-center space-x-10">
           {categories.map((category, index) => (
             <div
               key={category.name + index}
-              className="category-item items-center flex flex-row"
+              className="category-item-container flex flex-row items-center justify-center"
             >
-              <img
-                src={category.image}
-                alt="recommended category"
-                className="category-photo h-[80px] w-[90px] rounded-md mr-7"
-              />
-              <div className="category-name flex flex-col items-start space-y-2">
-                <span className="category-name text-black font-bold text-xl">
-                  {category.name}
-                </span>
+              <div className="category-item flex flex-col items-center justify-center">
+                <img
+                  src={category.image}
+                  alt="recommended category"
+                  className="category-photo h-[70px] w-[80px] rounded-md"
+                />
+                <div className="category-name flex flex-col items-start space-y-2">
+                  <span className="category-name text-black font-bold text-left">
+                    {category.name}
+                  </span>
+                </div>
               </div>
+              {index < categories.length - 1 && (
+                <div className="w-[1px] h-20 bg-black mx-3"></div>
+              )}
             </div>
           ))}
         </div>
