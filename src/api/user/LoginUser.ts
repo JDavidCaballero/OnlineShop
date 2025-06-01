@@ -1,38 +1,39 @@
+import { customFetch } from "../utils/customFetch"
+
 export type loginUserModel = {
-  email: string;
-  password: string;
-};
+  email: string
+  password: string
+}
 
 export type userInfoResponse = {
-  name: string;
-  email: string;
-  id: string;
-  accessToken: string;
-};
+  name: string
+  email: string
+  id: string
+  accessToken: string
+  refreshToken: string
+}
 
 export type userLoginResponse = {
-  user: userInfoResponse;
-};
+  user: userInfoResponse
+}
 
 async function loginUser(
   user: loginUserModel
 ): Promise<userLoginResponse | Error> {
   try {
-    const response = await fetch("http://localhost:3000/api/users/login", {
+    const response = await customFetch("/users/login", {
       method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
       body: JSON.stringify(user),
-    });
+    })
+
     if (!response.ok) {
-      throw new Error("Failed to create user");
+      throw new Error("Failed to login user")
     }
-    const data = await response.json();
-    return data;
+
+    const data = await response.json()
+    return data
   } catch (error) {
-    return new Error("An error occurred try again later");
+    return new Error("An error occurred, please try again later")
   }
 }
-
-export default loginUser;
+export default loginUser

@@ -1,32 +1,23 @@
-import { useQuery, useQueryClient } from "react-query";
-import { userLoginResponse } from "../../api/user/LoginUser";
-import getUserInfo from "../../api/user/getUserInfo";
-import loader from "../../components/loader/Loader";
-import close from "../../assets/close.png";
-import { useLocation, useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import { userActions } from "../../store/userSlice";
+import { useQuery, useQueryClient } from "react-query"
+import getUserInfo from "../../api/user/getUserInfo"
+import loader from "../../components/loader/Loader"
+import close from "../../assets/close.png"
+import { useNavigate } from "react-router-dom"
+import { useDispatch } from "react-redux"
+import { userActions } from "../../store/userSlice"
 
 const ProfilePage: React.FC = () => {
-  const location = useLocation();
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
-  const queryClient = useQueryClient();
-  const { user } = location.state as { user: userLoginResponse };
-  const { isLoading, data } = useQuery(
-    "getUserInfo",
-    () =>
-      getUserInfo({
-        id: user.user.id,
-        accessToken: user.user.accessToken,
-      }),
-    { refetchOnWindowFocus: false }
-  );
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
+  const queryClient = useQueryClient()
+  const { isLoading, data } = useQuery("getUserInfo", () => getUserInfo(), {
+    refetchOnWindowFocus: false,
+  })
   const handleLogOut = () => {
-    dispatch(userActions.logoutUser());
-    queryClient.clear();
-    navigate("/", { replace: true });
-  };
+    dispatch(userActions.logoutUser())
+    queryClient.clear()
+    navigate("/", { replace: true })
+  }
   return (
     <>
       {isLoading ? (
@@ -68,7 +59,7 @@ const ProfilePage: React.FC = () => {
         </div>
       )}
     </>
-  );
-};
+  )
+}
 
-export default ProfilePage;
+export default ProfilePage

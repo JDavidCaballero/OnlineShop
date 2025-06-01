@@ -1,45 +1,43 @@
-import React, { useState, useEffect } from "react";
-import { RecommendedProduct } from "../../api/recommendedProducts/RecommendedProducts";
-import { useNavigate } from "react-router-dom";
+import React, { useState, useEffect } from "react"
+import { RecommendedProduct } from "../../api/recommendedProducts/RecommendedProducts"
+import { useNavigate } from "react-router-dom"
 
 interface MainBannerProps {
-  products: RecommendedProduct[];
+  products: RecommendedProduct[]
 }
 
 const MainBanner: React.FC<MainBannerProps> = ({ products }) => {
-  const [currentProductIndex, setCurrentProductIndex] = useState(0);
-  const [animationClass, setAnimationClass] = useState("slide-in-from-left");
-  const navigate = useNavigate();
+  const [currentProductIndex, setCurrentProductIndex] = useState(0)
+  const [animationClass, setAnimationClass] = useState("slide-in-from-left")
+  const navigate = useNavigate()
   useEffect(() => {
     if (products.length <= 1) {
-      return; // Exit early if there's only one product, no need for animation.
+      return // Exit early if there's only one product, no need for animation.
     }
 
     const interval = setInterval(() => {
-      setAnimationClass("slide-out-to-left");
+      setAnimationClass("slide-out-to-left")
       setTimeout(() => {
-        setCurrentProductIndex(
-          (prevIndex) => (prevIndex + 1) % products.length
-        );
-        setAnimationClass("slide-in-from-left");
-      }, 500);
-    }, 7000);
+        setCurrentProductIndex((prevIndex) => (prevIndex + 1) % products.length)
+        setAnimationClass("slide-in-from-left")
+      }, 500)
+    }, 7000)
 
-    return () => clearInterval(interval);
-  }, [products.length]);
+    return () => clearInterval(interval)
+  }, [products.length])
 
-  let currentProduct: RecommendedProduct | null = null;
+  let currentProduct: RecommendedProduct | null = null
 
-  currentProduct = products.length === 0 ? null : products[currentProductIndex];
+  currentProduct = products.length === 0 ? null : products[currentProductIndex]
 
   const goToProduct = () => {
     navigate(`/Product/${currentProduct?._id}`, {
       state: { product: currentProduct },
-    });
-  };
+    })
+  }
 
   return (
-    <div className="box-border h-[52] w-[550] bg-gray-200 rounded p-4 border-4">
+    <div className="box-border h-[52] w-[550] bg-gray-200 rounded p-4 border-4 overflow-hidden">
       <div className={`left-section flex flex-row columns-2 ${animationClass}`}>
         <div className="flex flex-col items-start me-5">
           <h1 className="text-black text-left w-80 h-15 truncate">
@@ -76,7 +74,7 @@ const MainBanner: React.FC<MainBannerProps> = ({ products }) => {
         </div>
       )}
     </div>
-  );
-};
+  )
+}
 
-export default MainBanner;
+export default MainBanner

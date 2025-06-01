@@ -1,12 +1,12 @@
-import React from "react";
-import { NavigateFunction, NavLink } from "react-router-dom";
-import { userLoginResponse } from "../../api/user/LoginUser";
-import avatarLogo from "../../assets/avatar.png";
-import cart from "../../assets/cart.png";
+import React from "react"
+import { NavigateFunction, NavLink } from "react-router-dom"
+import avatarLogo from "../../assets/avatar.png"
+import cart from "../../assets/cart.png"
+import { UserState } from "../../store/userSlice"
 interface BarProps {
-  areLoggedIn: boolean;
-  navigate: NavigateFunction;
-  user: userLoginResponse;
+  areLoggedIn: boolean
+  navigate: NavigateFunction
+  user: UserState
 }
 
 const MainNavigationBar: React.FC<BarProps> = ({
@@ -33,7 +33,7 @@ const MainNavigationBar: React.FC<BarProps> = ({
           </li>
           <li className="list-none">
             <NavLink
-              to="/about"
+              to="/aboutUs"
               className={({ isActive }) =>
                 `${
                   isActive ? "text-yellow-400" : "text-black"
@@ -65,13 +65,15 @@ const MainNavigationBar: React.FC<BarProps> = ({
             className="bg-transparent text-black border-none outline-none"
             onClick={() => {
               if (areLoggedIn) {
-                navigate(`/Profile/${user.user.id}`, { state: { user: user } });
+                navigate(`/Profile/${user.id}`)
+                console.warn("user", user)
+                console.warn("areLoggedIn", areLoggedIn)
               } else {
-                navigate("/SignIn");
+                navigate("/SignIn")
               }
             }}
           >
-            {areLoggedIn ? `Welcome ${user.user.name}` : "Sign In"}
+            {areLoggedIn ? `Welcome ${user.name}` : "Sign In"}
           </button>
         </div>
         <div className="flex flex-row p-1 items-center">
@@ -80,7 +82,7 @@ const MainNavigationBar: React.FC<BarProps> = ({
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default MainNavigationBar;
+export default MainNavigationBar

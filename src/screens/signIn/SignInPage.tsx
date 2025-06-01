@@ -1,57 +1,56 @@
-import React, { useState } from "react";
-import amazonLogo from "../../assets/amazon_logo.png";
-import postCreateUser, { userModel } from "../../api/user/CreateUser";
-import { useMutation } from "react-query";
-import RegistrationForm from "./RegisterForm";
-import LoginForm from "./LoginForm";
-import loginUser, { loginUserModel } from "../../api/user/LoginUser";
-import { useDispatch } from "react-redux";
-import { userActions } from "../../store/userSlice";
-import { useNavigate } from "react-router-dom";
-import loader from "../../components/loader/Loader";
+import React, { useState } from "react"
+import amazonLogo from "../../assets/amazon_logo.png"
+import postCreateUser, { userModel } from "../../api/user/CreateUser"
+import { useMutation } from "react-query"
+import RegistrationForm from "./RegisterForm"
+import LoginForm from "./LoginForm"
+import loginUser, { loginUserModel } from "../../api/user/LoginUser"
+import { useDispatch } from "react-redux"
+import { userActions } from "../../store/userSlice"
+import { useNavigate } from "react-router-dom"
+import loader from "../../components/loader/Loader"
 
 const SignInPage: React.FC = () => {
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
-  const [activeTab, setActiveTab] = useState("login");
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
+  const [activeTab, setActiveTab] = useState("login")
   //register ep
   const { mutate, isLoading: loadingRegister } = useMutation(postCreateUser, {
     onSuccess: (data) => {
-      alert(data.message + " you can now login with your credentials.");
+      alert(data.message + " you can now login with your credentials.")
     },
     onError: () => {
-      alert("An error occurred while creating the user. Please try again.");
+      alert("An error occurred while creating the user. Please try again.")
     },
-  });
+  })
 
   const handleRegister = (registerValues: userModel) => {
-    mutate(registerValues);
-  };
+    mutate(registerValues)
+  }
   //sign in ep
   const { mutate: signInMutate, isLoading: loadingSignIn } = useMutation(
     loginUser,
     {
       onSuccess: (data) => {
         if (!(data instanceof Error)) {
-          console.warn("data sign in", data);
-          alert(data.user.name + " has been authenticated successfully.");
-          dispatch(userActions.loginUser(data));
-          navigate("/");
+          alert(data.user.name + " has been authenticated successfully.")
+          dispatch(userActions.loginUser(data))
+          navigate("/")
         } else {
-          alert("User not found. Please try again.");
+          alert("User not found. Please try again.")
         }
       },
       onError: () => {
         alert(
           "An error occurred while authenticate the user. Please try again."
-        );
+        )
       },
     }
-  );
+  )
 
   const handleSignIn = (signInValues: loginUserModel) => {
-    signInMutate(signInValues);
-  };
+    signInMutate(signInValues)
+  }
 
   return (
     <div className="signInContainer rounded bg-yellow-400 h-[680px] w-[500px] flex-col p-5 shadow-2xl">
@@ -125,7 +124,7 @@ const SignInPage: React.FC = () => {
         </div>
       )}
     </div>
-  );
-};
+  )
+}
 
-export default SignInPage;
+export default SignInPage

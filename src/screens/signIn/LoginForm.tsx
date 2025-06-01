@@ -1,9 +1,9 @@
-import { useFormik } from "formik";
-import * as Yup from "yup";
-import { loginUserModel } from "../../api/user/LoginUser";
+import { useFormik } from "formik"
+import * as Yup from "yup"
+import { loginUserModel } from "../../api/user/LoginUser"
 
 interface LoginFormProps {
-  onSubmit: (values: loginUserModel) => void;
+  onSubmit: (values: loginUserModel) => void
 }
 
 const LoginForm: React.FC<LoginFormProps> = ({ onSubmit }) => {
@@ -17,15 +17,15 @@ const LoginForm: React.FC<LoginFormProps> = ({ onSubmit }) => {
       password: Yup.string().required("Required"),
     }),
     onSubmit: (values, { setSubmitting }) => {
-      const { email, password } = values;
+      const { email, password } = values
       if (!email || !password) {
-        window.alert("Please fill all the inputs.");
-        setSubmitting(false); // Stop the submission process
+        window.alert("Please fill all the inputs.")
+        setSubmitting(false) // Stop the submission process
       } else {
-        onSubmit(values);
+        onSubmit(values)
       }
     },
-  });
+  })
 
   return (
     <form onSubmit={formik.handleSubmit}>
@@ -65,7 +65,7 @@ const LoginForm: React.FC<LoginFormProps> = ({ onSubmit }) => {
         </button>
       </div>
     </form>
-  );
-};
+  )
+}
 
-export default LoginForm;
+export default LoginForm

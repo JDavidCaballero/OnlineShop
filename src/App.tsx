@@ -1,12 +1,13 @@
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import "./App.css";
-import LandingPage from "./screens/landingPage/LandingPage";
-import SignInPage from "./screens/signIn/SignInPage";
-import RootLayout from "./screens/rootLayout/RootLayout";
-import ErrorPage from "./screens/errorPage/ErrorPage";
-import ProfilePage from "./screens/profile/profilePage";
-import ProtectedRoute from "./screens/rootLayout/ProtectedRoute";
-import ProductDetail from "./screens/productDetail/ProductDetail";
+import { createBrowserRouter, RouterProvider } from "react-router-dom"
+import "./App.css"
+import LandingPage from "./screens/landingPage/LandingPage"
+import SignInPage from "./screens/signIn/SignInPage"
+import RootLayout from "./screens/rootLayout/RootLayout"
+import ErrorPage from "./screens/errorPage/ErrorPage"
+import ProfilePage from "./screens/profile/profilePage"
+import ProtectedRoute from "./screens/rootLayout/ProtectedRoute"
+import ProductDetail from "./screens/productDetail/ProductDetail"
+import AboutUsPage from "./screens/aboutUs/AboutUs"
 
 const routes = createBrowserRouter([
   {
@@ -17,6 +18,10 @@ const routes = createBrowserRouter([
       {
         path: "/",
         element: <LandingPage />,
+      },
+      {
+        path: "/aboutUs",
+        element: <AboutUsPage />,
       },
       {
         path: "/SignIn",
@@ -36,14 +41,14 @@ const routes = createBrowserRouter([
       },
     ],
   },
-]);
+])
 
 function App() {
   return (
     <div>
       <RouterProvider router={routes} />
     </div>
-  );
+  )
 }
 
-export default App;
+export default App

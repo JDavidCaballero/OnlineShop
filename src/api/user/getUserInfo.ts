@@ -1,34 +1,33 @@
+import { customFetch } from "../utils/customFetch"
+
 export type getUserProps = {
-  id: string;
-  accessToken: string;
-};
+  id: string
+  accessToken: string
+}
 
 export type getUserResponse = {
-  name: string;
-  email: string;
-  id: string;
-  accessToken: string;
-};
+  name: string
+  email: string
+  id: string
+  accessToken: string
+}
 
-async function getUserInfo(
-  props: getUserProps
-): Promise<getUserResponse | Error> {
+async function getUserInfo(): Promise<getUserResponse | Error> {
   try {
-    const response = await fetch(`http://localhost:3000/api/user/${props.id}`, {
+    const response = await customFetch("/user/info", {
       method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${props.accessToken}`,
-      },
-    });
+    })
     if (!response.ok) {
-      throw new Error("Failed to get user Info");
+      throw new Error("Failed to get user Info")
     }
-    const data = await response.json();
-    return data;
+    const data = await response.json()
+    return data
   } catch (error) {
-    return new Error("An error occurred try again later");
+    console.error(error)
+    return new Error(
+      "An error occurred retrieving user information, please try again later"
+    )
   }
 }
 
-export default getUserInfo;
+export default getUserInfo
