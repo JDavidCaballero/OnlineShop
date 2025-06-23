@@ -1,8 +1,8 @@
-import React from "react";
+import React from "react"
 
 interface CategoryCardProps {
-  name: string;
-  imagePath: string;
+  name: string
+  imagePath: string
 }
 
 const CategoryCard: React.FC<CategoryCardProps> = ({
@@ -10,7 +10,7 @@ const CategoryCard: React.FC<CategoryCardProps> = ({
   imagePath = "",
 }) => {
   return (
-    <div className="bg-gray-200 h-72 w-full flex flex-col justify-between rounded-md">
+    <div className="bg-gray-200 h-72 flex flex-col justify-between rounded-md">
       <img
         src={imagePath}
         alt={name}
@@ -22,7 +22,7 @@ const CategoryCard: React.FC<CategoryCardProps> = ({
         </h3>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default CategoryCard;
+export default CategoryCard

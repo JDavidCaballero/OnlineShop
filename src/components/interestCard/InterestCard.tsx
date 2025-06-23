@@ -1,9 +1,9 @@
-import React from "react";
+import React from "react"
 
 interface InterestCardProps {
-  title: string;
-  description: string;
-  imagePath: string;
+  title: string
+  description: string
+  imagePath: string
 }
 
 const InterestCard: React.FC<InterestCardProps> = ({
@@ -12,26 +12,21 @@ const InterestCard: React.FC<InterestCardProps> = ({
   imagePath,
 }) => {
   return (
-    <div className="rounded flex columns-2 bg-orange-50 rounded-md w-full h-[120px]">
-      <div className="textContainer flex flex-col p-3 items-start w-[350px] h">
+    <div className="flex bg-orange-50 rounded-md w-full h-[120px] overflow-hidden">
+      <div className="flex flex-col p-3 flex-1">
         <h2 className="text-lg font-bold text-black">{title}</h2>
-        <p
-          className="text-black text-left
-         text-ellipsis"
-        >
-          {description}
-        </p>
-        <div className="flex items-center justify-start">
+        <p className="text-black text-left line-clamp-2">{description}</p>
+        <div className="mt-auto">
           <span className="text-black">See more ---</span>
         </div>
       </div>
       <img
         src={imagePath}
         alt="Image"
-        className="ml-auto w-[90px] h-full rounded"
+        className="w-[90px] h-full object-cover rounded-r-md"
       />
     </div>
-  );
-};
+  )
+}
 
-export default InterestCard;
+export default InterestCard
